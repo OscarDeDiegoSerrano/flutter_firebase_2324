@@ -2,14 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_2324/componentes/boto_auth.dart';
 import 'package:flutter_firebase_2324/componentes/textfield_auth.dart';
 
-class PaginaRegistre extends StatelessWidget {
+class PaginaRegistre extends StatefulWidget {
 
+  final void Function()? alFerClic;
+
+  const PaginaRegistre({
+    Key? key,
+    required this.alFerClic,
+    });
+
+  @override
+  State<PaginaRegistre> createState() => _PaginaRegistreState();
+}
+
+class _PaginaRegistreState extends State<PaginaRegistre> {
   final TextEditingController controllerEmail = TextEditingController();
+
   final TextEditingController controllerPassword = TextEditingController();
+
   final TextEditingController controllerConfirmarPassword = TextEditingController();
 
-  PaginaRegistre({super.key});
-  
   void ferRegistre(){
     
   }
@@ -94,9 +106,7 @@ class PaginaRegistre extends StatelessWidget {
                       Text("Ja ets ets membre?"),
                       SizedBox(width: 5),
                       GestureDetector(
-                        onTap: () {
-                          // Aquí puedes manejar la acción de registro
-                        },
+                        onTap: widget.alFerClic,
                         child: Text(
                           "Fes Login",
                           style: TextStyle(

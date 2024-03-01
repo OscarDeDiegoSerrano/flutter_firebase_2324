@@ -23,7 +23,6 @@ class Boto_Auth extends StatelessWidget {
           color: Color.fromARGB(255, 244, 111, 54)
           ),
         padding: EdgeInsets.all(25),
-        color: Color.fromARGB(255, 244, 111, 54),
         child: Text(
           "Login",
           style: const TextStyle(
