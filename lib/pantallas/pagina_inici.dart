@@ -9,13 +9,18 @@ class PaginaInici extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Pagina Inicial"),
-        actions: [
-
-        ],
-      )
-    );
-  }
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("Pagina Inicial"),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    ),
+  );
+}
 }

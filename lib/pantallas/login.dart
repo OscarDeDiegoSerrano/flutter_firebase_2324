@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_2324/auth/servei_auth.dart';
 import 'package:flutter_firebase_2324/componentes/boto_auth.dart';
 import 'package:flutter_firebase_2324/componentes/textfield_auth.dart';
 
@@ -19,8 +20,23 @@ class _PaginaLoginState extends State<PaginaLogin> {
   final TextEditingController controllerEmail = TextEditingController();
   final TextEditingController controllerPassword = TextEditingController();
 
-  void ferLogin() {
-    // Aquí puedes implementar la lógica para iniciar sesión
+  void ferLogin(BuildContext context) async {
+
+    final serveiAuth = ServeiAuth();
+
+    try{
+      await serveiAuth.loginEmailPassword(
+        controllerEmail.text, 
+        controllerPassword.text
+      ); 
+    } catch (e) {
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
   }
 
   @override
@@ -118,7 +134,7 @@ class _PaginaLoginState extends State<PaginaLogin> {
                 // Boto Login
                 Boto_Auth(
                   text: "Login",
-                  onTap: ferLogin,
+                  onTap: () => ferLogin(context),
                 ),
               ],
             ),
