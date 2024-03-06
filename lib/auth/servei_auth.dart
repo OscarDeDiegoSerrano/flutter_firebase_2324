@@ -20,4 +20,7 @@ class ServeiAuth{
   //Fer registre
 
   //Fer Logout
+  Future<void> tancarSessio() async {
+    return await _auth.signOut();
+  }
 }
