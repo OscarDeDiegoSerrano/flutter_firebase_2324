@@ -7,6 +7,7 @@ class PaginaRegistre extends StatefulWidget {
 
   final void Function()? alFerClic;
 
+
   const PaginaRegistre({
     Key? key,
     required this.alFerClic,
@@ -18,12 +19,13 @@ class PaginaRegistre extends StatefulWidget {
 
 class _PaginaRegistreState extends State<PaginaRegistre> {
   final TextEditingController controllerEmail = TextEditingController();
-
   final TextEditingController controllerPassword = TextEditingController();
-
   final TextEditingController controllerConfirmarPassword = TextEditingController();
 
-  void ferRegistre(){
+  void ferRegistre()
+
+    final serveiAuth = ServeiAuth();
+
     try{
       ServeiAuth.registreEmailPassword(
         controllerEmail.text,
