@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_2324/pantallas/login.dart';
-import 'package:flutter_firebase_2324/pantallas/registre.dart';
+import 'package:flutter_firebase_2324/pagines/pagina_login.dart';
+import 'package:flutter_firebase_2324/pagines/pagina_registre.dart';
 
 class LoginORegistre extends StatefulWidget {
   const LoginORegistre({super.key});
@@ -11,19 +11,22 @@ class LoginORegistre extends StatefulWidget {
 
 class _LoginORegistreState extends State<LoginORegistre> {
 
-void intercanviarPaginesLoginRegistre(){
-  setState(() {
-    mostrarPaginaLogin = !mostrarPaginaLogin;
-  });
-}
+  bool mostraPaginaLogin = true;
 
-  bool mostrarPaginaLogin = true;
+  void intercanviarPaginesLoginRegistre() {
+    setState(() {
+      mostraPaginaLogin = !mostraPaginaLogin;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    if(mostrarPaginaLogin){
+    if (mostraPaginaLogin) {
       return PaginaLogin(alFerClic: intercanviarPaginesLoginRegistre,);
+    } else {
+      return PaginaRegistre(alFerClic: intercanviarPaginesLoginRegistre,);
     }
-    return PaginaRegistre(alFerClic: intercanviarPaginesLoginRegistre,);
+    
   }
 }

@@ -23,9 +23,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -44,37 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCTGrRuuxPEboKd_XxvrLbrZSTZc1cQ1kA',
-    appId: '1:458251310978:web:e0e41748760de5c2aba19b',
-    messagingSenderId: '458251310978',
-    projectId: 'fir-oscar-71fe3',
-    authDomain: 'fir-oscar-71fe3.firebaseapp.com',
-    storageBucket: 'fir-oscar-71fe3.appspot.com',
+    apiKey: 'AIzaSyDr5yjjCKkY-TV766rMhQy4j-iRDsTMkoI',
+    appId: '1:945443092268:web:8365aca946886495085e89',
+    messagingSenderId: '945443092268',
+    projectId: 'flutterfirebase-f2c54',
+    authDomain: 'flutterfirebase-f2c54.firebaseapp.com',
+    storageBucket: 'flutterfirebase-f2c54.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDfq_QNmEcL_ZEVqrM1xJABLi_56cEVl4s',
-    appId: '1:458251310978:android:ccdcf94af96ca1daaba19b',
-    messagingSenderId: '458251310978',
-    projectId: 'fir-oscar-71fe3',
-    storageBucket: 'fir-oscar-71fe3.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBfSf2UxzGg12qEA9eJ7-9hxdNfB1OMgi4',
-    appId: '1:458251310978:ios:eb2d3aa8167322f4aba19b',
-    messagingSenderId: '458251310978',
-    projectId: 'fir-oscar-71fe3',
-    storageBucket: 'fir-oscar-71fe3.appspot.com',
-    iosBundleId: 'com.example.flutterFirebase2324',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBfSf2UxzGg12qEA9eJ7-9hxdNfB1OMgi4',
-    appId: '1:458251310978:ios:34e05ca6f3bfe28baba19b',
-    messagingSenderId: '458251310978',
-    projectId: 'fir-oscar-71fe3',
-    storageBucket: 'fir-oscar-71fe3.appspot.com',
-    iosBundleId: 'com.example.flutterFirebase2324.RunnerTests',
+    apiKey: 'AIzaSyCKKCLhtiMVfN-2NSl2Kc7lOxLht8OWtPA',
+    appId: '1:945443092268:android:48fd42e57e7b9044085e89',
+    messagingSenderId: '945443092268',
+    projectId: 'flutterfirebase-f2c54',
+    storageBucket: 'flutterfirebase-f2c54.appspot.com',
   );
 }
