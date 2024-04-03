@@ -10,6 +10,7 @@ class PaginaChat extends StatefulWidget {
 
   final String emailAmbQuiParlem;
   final String idReceptor;
+  
 
   const PaginaChat({
     super.key,
@@ -24,9 +25,45 @@ class PaginaChat extends StatefulWidget {
 class _PaginaChatState extends State<PaginaChat> {
 
   final TextEditingController controllerMissatge = TextEditingController();
+  final ScrollController controllerScroll = ScrollController();
 
   final ServeiChat _serveiChat = ServeiChat();
   final ServeiAuth _serveiAuth = ServeiAuth();
+
+  //Variable pel teclat d'un mobil
+  final FocusNode focusNode = FocusNode();
+
+  @override
+  void dispose(){
+
+    focusNode.dispose();
+
+    super.dispose();
+  }
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    focusNode.addListener(() {
+
+    });
+
+    //Ens esperem un moment i llavors movem cap a baix.
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () => ferScrollCapAvall(),
+    );
+  }
+
+  void ferScrollCapAvall(){
+    controllerScroll.animateTo(
+      controllerScroll.position.maxScrollExtent,
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+      );
+  }
+
 
   void enviarMissatge() {
 
@@ -39,6 +76,8 @@ class _PaginaChatState extends State<PaginaChat> {
 
       // Netejar el camp.
       controllerMissatge.clear();
+
+      ferScrollCapAvall();
     }
   }
 
@@ -81,6 +120,7 @@ class _PaginaChatState extends State<PaginaChat> {
 
         //Retornant dades (ListView).
         return ListView(
+          controller: controllerScroll,
           children: snapshot.data!.docs.map((document) => _construirItemMissatge(document)).toList(),
         );
 
