@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_2324/auth/servei_auth.dart';
@@ -10,7 +8,6 @@ class PaginaChat extends StatefulWidget {
 
   final String emailAmbQuiParlem;
   final String idReceptor;
-  
 
   const PaginaChat({
     super.key,
@@ -30,55 +27,59 @@ class _PaginaChatState extends State<PaginaChat> {
   final ServeiChat _serveiChat = ServeiChat();
   final ServeiAuth _serveiAuth = ServeiAuth();
 
-  //Variable pel teclat d'un mobil
+  // Variable pel teclat d'un mòbil.
   final FocusNode focusNode = FocusNode();
 
   @override
-  void dispose(){
+  void dispose() {
 
     focusNode.dispose();
+    controllerMissatge.dispose();
 
     super.dispose();
   }
 
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
-    focusNode.addListener(() {
-
+    focusNode.addListener(() { 
+      Future.delayed(
+        const Duration(milliseconds: 500),
+        () => ferScrollCapAvall(), 
+      );
     });
 
-    //Ens esperem un moment i llavors movem cap a baix.
+    // Ens esperem un moment, i llavors movem cap a baix.
     Future.delayed(
       const Duration(milliseconds: 500),
-      () => ferScrollCapAvall(),
+      () => ferScrollCapAvall(), 
     );
   }
 
-  void ferScrollCapAvall(){
+  void ferScrollCapAvall() {
+
     controllerScroll.animateTo(
-      controllerScroll.position.maxScrollExtent,
-      duration: const Duration(seconds: 1),
-      curve: Curves.fastOutSlowIn,
-      );
+      controllerScroll.position.maxScrollExtent, 
+      duration: const Duration(seconds: 1), 
+      curve: Curves.fastOutSlowIn, 
+    );
   }
 
-
-  void enviarMissatge() {
+  void enviarMissatge() async {
 
     if (controllerMissatge.text.isNotEmpty) {
 
       // Enviar el missatge.
-      _serveiChat.enviarMissatge(
+      await _serveiChat.enviarMissatge(
         widget.idReceptor, 
         controllerMissatge.text);
 
       // Netejar el camp.
       controllerMissatge.clear();
 
-      ferScrollCapAvall();
     }
+    ferScrollCapAvall();
   }
 
   @override
@@ -106,45 +107,48 @@ class _PaginaChatState extends State<PaginaChat> {
     String idUsuariActual = _serveiAuth.getUsuariActual()!.uid;
 
     return StreamBuilder(
-      stream: _serveiChat.getMissatges(idUsuariActual, widget.idReceptor),
+      stream: _serveiChat.getMissatges(idUsuariActual, widget.idReceptor), 
       builder: (context, snapshot){
-        //Cas que hi hagi error.
-        if(snapshot.hasError){
-          return const Text("Error carregant missatges");
+
+        // Cas que hi hagi error.
+        if (snapshot.hasError) {
+          return const Text("Error carregant missatges.");
         }
 
-        //Estar encara carregant.
-        if(snapshot.connectionState == ConnectionState.waiting){
-          return const Text("Esta carregant les dades");
+        // Estar encara carregant.
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Carregant...");
         }
 
-        //Retornant dades (ListView).
+        // Retornar dades (ListView).
         return ListView(
           controller: controllerScroll,
           children: snapshot.data!.docs.map((document) => _construirItemMissatge(document)).toList(),
         );
 
-      }
+      },
     );
   }
 
   Widget _construirItemMissatge(DocumentSnapshot documentSnapshot){
 
-    //final data = document...(altra opció)
+    // final data = document... (altra opció).
     Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
 
-    //Saber si el mostrem a l'esquerra o a la dreta.
+    // Saber si el mostrem a l'esquerra o a la dreta.
 
-    //Si és usuari actual.
+    // Si és usuari acutal.
     bool esUsuariActual = data["idAutor"] == _serveiAuth.getUsuariActual()!.uid;
 
-    //Operador ternari.
+    // (Operador ternari).
     var aliniament = esUsuariActual ? Alignment.centerRight : Alignment.centerLeft;
     var colorBombolla = esUsuariActual ? Colors.green[200] : Colors.amber[200];
-
     return Container(
       alignment: aliniament,
-      child: BombollaMissatge(colorBombolla:),
+      child: BombollaMissatge(
+        colorBombolla: colorBombolla??Colors.black,
+        missatge: data["missatge"],
+      ),
     );
   }
 

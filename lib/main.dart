@@ -1,10 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_2324/auth/login_o_registre.dart';
 import 'package:flutter_firebase_2324/auth/portal_auth.dart';
 import 'package:flutter_firebase_2324/firebase_options.dart';
-import 'package:flutter_firebase_2324/pagines/pagina_login.dart';
-import 'package:flutter_firebase_2324/pagines/pagina_registre.dart';
 
 
 void main() async {
@@ -57,4 +54,13 @@ Imatges:
   - image_picker: flutter pub add image_picker
 4)Perque funcioni en Android:
   - Anar a android > app >
+  Segurament caldrà anar a: android > app > build.gradle.
+    - On diu minSdkVersion flutter.mindSdkVersion canviar-ho per: minSdkVersion 21
+  Si dona error dient: One or more plugins require a higher Android SDK Version.
+6)Perque funcioni a web:
+onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
 */
