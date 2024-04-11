@@ -21,7 +21,7 @@ class _EditarDadesUsuariState extends State<EditarDadesUsuari> {
 
   Future<void> _triaImatge() async{
     final ImagePicker picker = ImagePicker();
-    XFile? Imatge = await picker.pickImage(source: ImageSource.gallery);
+    XFile? imatge = await picker.pickImage(source: ImageSource.gallery);
 
     //Si trien i trobem la imatge.
     if (imatge != null) {
@@ -38,10 +38,10 @@ class _EditarDadesUsuariState extends State<EditarDadesUsuari> {
         Uint8List arxiuEnBytes = await imatge.readAsBytes();
 
         setState(() {
-          _imatgeSeleccionadaApp = arxiuEnBytes;
+          _imatgeSeleccionadaWeb = arxiuEnBytes;
           _imatgeAPuntPerPujar = true;
         }
-        )
+        );
       }
 
     }
